@@ -102,39 +102,51 @@ rules:
   # The radius around their pearl that an exiled player can't enter.
   # Set this value to 0 to disable the radius.
   pearl_radius: 1000
-  # When false, exiled players can't set things on fire.
-  ignite: false
-  use_bed: false
+  # Worlds that pearls are not allowed to be stored in.
+  disallowed_worlds:
+
+  # When true, exiled players can use the /suicide command.
+  suicide: true
+  # When false, exiled players can't break any blocks.
+  mine_blocks: true
+  # When false, exiled players can't harm other players.
+  pvp: false
   # When false, exiled players can't empty buckets or move them to
   # other inventories.
   use_bucket: false
   # When false, exiled players can't fill buckets (unless milk_cows is true).
   fill_bucket: false
-  milk_cows: true
+  place_tnt: false
+  # When false, exiled players can't set things on fire.
+  ignite: false
+  use_bed: false
   use_potions: false
-  # When false, exiled players can't drink brewery brews.
-  drink_brews: true
-  fill_cauldron: true
   throw_pearl: false
-  # When false, exiled players can't harm other players.
-  pvp: false
-  # When false, exiled players can't harm pet mobs.
-  kill_pets: false
   # When false, exiled players can't harm protected mobs.
   kill_mobs: false
-  enchant: true
-  brew: true
-  # When true, exiled players can use the /suicide command.
-  suicide: true
-  # When false, exiled players can't break any blocks.
-  mine_blocks: true
+  # Mobs that are protected when rules.kill_mobs is set to false.
+  protected_mobs:
+  - Sheep
+  - Cow
+  - Pig
+  - Horse
+  # When false, exiled players can't harm pet mobs.
+  kill_pets: false
   # When false, exiled players can't collect xp orbs.
   collect_xp: true
+  enchant: true
   use_anvil: true
-  place_tnt: false
+  milk_cows: true
+  fill_cauldron: true
+
+  brew: true
+  # When false, exiled players can't drink brewery brews.
+  drink_brews: true
+
   # When false, exiled players can't chat locally.
   # Requires CivChat2 plugin.
   chat_local: false
+
   # Requires Bastion plugin.
   create_bastion: false
   # Requires Bastion plugin.
@@ -143,15 +155,9 @@ rules:
   # they aren't a member of.
   # Requires Bastion plugin.
   enter_bastion: false
+
   # Requires Citadel plugin.
   damage_reinforcement: false
+
   # Requires JukeAlert plugin.
   place_snitch: false
-  # Mobs that are protected when rules.kill_mobs is set to false.
-  protected_mobs:
-  - Sheep
-  - Cow
-  - Pig
-  - Horse
-  # Worlds that pearls are not allowed to be stored in.
-  disallowed_worlds:
