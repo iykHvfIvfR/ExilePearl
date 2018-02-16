@@ -22,22 +22,22 @@ import com.devotedmc.ExilePearl.storage.StorageType;
 import vg.civcraft.mc.civmodcore.util.Guard;
 
 final class CorePearlConfig implements DocumentConfig, PearlConfig {
-	
+
 	private final Plugin plugin;
 	private final PearlLogger logger;
 	private Document doc;
 	private Set<Configurable> configurables = new HashSet<Configurable>();
-	
+
 	public CorePearlConfig(final Plugin plugin, final PearlLogger logger) {
 		Guard.ArgumentNotNull(plugin, "plugin");
 		Guard.ArgumentNotNull(logger, "logger");
-		
+
 		this.plugin = plugin;
 		this.logger = logger;
-		
+
 		doc = new Document(plugin.getConfig());
 	}
-	
+
 	@Override
 	public Document getDocument() {
 		return this.doc;
@@ -47,7 +47,7 @@ final class CorePearlConfig implements DocumentConfig, PearlConfig {
 	public void reload() {
 		plugin.reloadConfig();
 		doc = new Document(plugin.getConfig());
-		
+
 		for(Configurable c : configurables) {
 			try {
 				c.loadConfig(this);
@@ -58,7 +58,7 @@ final class CorePearlConfig implements DocumentConfig, PearlConfig {
 		}
 		logger.log("Configuration loaded.");
 	}
-	
+
 	@Override
 	public void saveToFile() {
 		doc.savetoConfig(plugin.getConfig());
@@ -139,7 +139,7 @@ final class CorePearlConfig implements DocumentConfig, PearlConfig {
 	public int getPearlHealthDecayAmount() {
 		return doc.getInteger("pearls.decay_amount", 1);
 	}
-	
+
 	@Override
 	public int getPearlHealthDecayTimeout() {
 		return doc.getInteger("pearls.decay_timeout_min", 10080);
@@ -179,11 +179,11 @@ final class CorePearlConfig implements DocumentConfig, PearlConfig {
 	public Set<RepairMaterial> getRepairMaterials(PearlType type) {
 		Set<RepairMaterial> repairs = new HashSet<RepairMaterial>();
 		Document repairRecipes = doc.getDocument("pearls.repair_materials." + type);
-		
+
 		for(String repairName : repairRecipes.keySet()) {
 			repairs.add(RepairMaterial.fromDocument(repairName, repairRecipes.getDocument(repairName)));
 		}
-		
+
 		return repairs;
 	}
 
@@ -202,7 +202,7 @@ final class CorePearlConfig implements DocumentConfig, PearlConfig {
 
 	@Override
 	public int getSuicideTimeoutSeconds() {
-		return doc.getInteger("general.suicide_time_seconds", 180);
+		return doc.getInteger("general.suicide_time_sec", 180);
 	}
 
 	@Override
@@ -223,79 +223,79 @@ final class CorePearlConfig implements DocumentConfig, PearlConfig {
 
 		case DAMAGE_REINFORCEMENT:
 			return doc.getBoolean("rules.damage_reinforcement", false);
-			
+
 		case DAMAGE_BASTION:
 			return doc.getBoolean("rules.damage_bastion", false);
-			
+
 		case CREATE_BASTION:
 			return doc.getBoolean("rules.create_bastion", false);
-			
+
 		case ENTER_BASTION:
 			return doc.getBoolean("rules.enter_bastion", false);
-			
+
 		case THROW_PEARL:
-			return doc.getBoolean("rules.throw_pearl", false);
-			
+			return doc.getBoolean("rules.throw_pearls", false);
+
 		case CHAT:
 			return doc.getBoolean("rules.chat_local", false);
-			
+
 		case PVP:
 			return doc.getBoolean("rules.pvp", false);
-			
+
 		case KILL_PETS:
 			return doc.getBoolean("rules.kill_pets", false);
-			
+
 		case KILL_MOBS:
-			return doc.getBoolean("rules.kill_mobs", false);
-			
+			return doc.getBoolean("rules.kill_protected_mobs", false);
+
 		case IGNITE:
 			return doc.getBoolean("rules.ignite", false);
-			
+
 		case USE_BUCKET:
-			return doc.getBoolean("rules.use_bucket", false);
-			
+			return doc.getBoolean("rules.use_buckets", false);
+
 		case USE_POTIONS:
 			return doc.getBoolean("rules.use_potions", false);
-			
+
 		case USE_BED:
-			return doc.getBoolean("rules.use_bed", false);
-			
+			return doc.getBoolean("rules.use_beds", false);
+
 		case SUICIDE:
 			return doc.getBoolean("rules.suicide", false);
-			
+
 		case SNITCH:
 			return doc.getBoolean("rules.place_snitch", false);
-			
+
 		case MINE:
 			return doc.getBoolean("rules.mine_blocks", true);
-			
+
 		case BREW:
 			return doc.getBoolean("rules.brew", true);
-			
+
 		case ENCHANT:
 			return doc.getBoolean("rules.enchant", true);
-			
+
 		case COLLECT_XP:
 			return doc.getBoolean("rules.collect_xp", true);
-			
+
 		case USE_ANVIL:
-			return doc.getBoolean("rules.use_anvil", true);
-			
+			return doc.getBoolean("rules.use_anvils", true);
+
 		case PLACE_TNT:
 			return doc.getBoolean("rules.place_tnt", false);
-		
+
 		case DRINK_BREWS:
 			return doc.getBoolean("rules.drink_brews", true);
-		
+
 		case FILL_CAULDRON:
-			return doc.getBoolean("rules.fill_cauldron", true);
-			
+			return doc.getBoolean("rules.fill_cauldrons", true);
+
 		case FILL_BUCKET:
-			return doc.getBoolean("rules.fill_bucket", false);
-			
+			return doc.getBoolean("rules.fill_buckets", false);
+
 		case MILK_COWS:
 			return doc.getBoolean("rules.milk_cows", true);
-			
+
 		default:
 			return false;
 		}
@@ -307,83 +307,83 @@ final class CorePearlConfig implements DocumentConfig, PearlConfig {
 		case DAMAGE_REINFORCEMENT:
 			doc.append("rules.damage_reinforcement", value);
 			break;
-			
+
 		case DAMAGE_BASTION:
 			doc.append("rules.damage_bastion", value);
 			break;
-			
+
 		case CREATE_BASTION:
 			doc.append("rules.create_bastion", value);
 			break;
-			
+
 		case ENTER_BASTION:
 			doc.append("rules.enter_bastion", value);
 			break;
-			
+
 		case THROW_PEARL:
-			doc.append("rules.throw_pearl", value);
+			doc.append("rules.throw_pearls", value);
 			break;
-			
+
 		case CHAT:
 			doc.append("rules.chat_local", value);
 			break;
-			
+
 		case PVP:
 			doc.append("rules.pvp", value);
 			break;
-			
+
 		case KILL_PETS:
 			doc.append("rules.kill_pets", value);
 			break;
-			
+
 		case KILL_MOBS:
-			doc.append("rules.kill_mobs", value);
+			doc.append("rules.kill_protected_mobs", value);
 			break;
-			
+
 		case IGNITE:
 			doc.append("rules.ignite", value);
 			break;
-			
+
 		case USE_BUCKET:
-			doc.append("rules.use_bucket", value);
+			doc.append("rules.use_buckets", value);
 			break;
-			
+
 		case USE_POTIONS:
 			doc.append("rules.use_potions", value);
 			break;
-			
+
 		case USE_BED:
-			doc.append("rules.use_bed", value);
+			doc.append("rules.use_beds", value);
 			break;
-			
+
 		case SUICIDE:
 			doc.append("rules.suicide", value);
 			break;
-			
+
 		case SNITCH:
 			doc.append("rules.place_snitch", value);
 			break;
-			
+
 		case MINE:
 			doc.append("rules.mine_blocks", value);
 			break;
-			
+
 		case BREW:
 			doc.append("rules.brew", value);
 			break;
-			
+
 		case ENCHANT:
 			doc.append("rules.enchant", value);
 			break;
-			
+
 		case COLLECT_XP:
 			doc.append("rules.collect_xp", value);
 			break;
-			
+
 		case USE_ANVIL:
-			doc.append("rules.use_anvil", value);
+			doc.append("rules.use_anvils", value);
 			break;
-			
+
 		case PLACE_TNT:
 			doc.append("rules.place_tnt", value);
 			break;
@@ -391,19 +391,19 @@ final class CorePearlConfig implements DocumentConfig, PearlConfig {
 		case DRINK_BREWS:
 			doc.append("rules.drink_brews", value);
 			break;
-			
+
 		case FILL_CAULDRON:
-			doc.append("rules.fill_cauldron", value);
+			doc.append("rules.fill_cauldrons", value);
 			break;
-			
+
 		case FILL_BUCKET:
-			doc.append("rules.fill_bucket", value);
+			doc.append("rules.fill_buckets", value);
 			break;
-			
+
 		case MILK_COWS:
 			doc.append("rules.milk_cows", value);
 			break;
-			
+
 		default:
 			break;
 		}
@@ -451,9 +451,9 @@ final class CorePearlConfig implements DocumentConfig, PearlConfig {
 
 	@Override
 	public double getDamageLogPotionDamage() {
-		return doc.getDouble("damage_log.potion_damge", 6);
+		return doc.getDouble("damage_log.potion_damage", 6);
 	}
-	
+
 	@Override
 	public World getPrisonWorld() {
 		return Bukkit.getWorld(doc.getString("prison_world", "world_the_end"));
@@ -463,14 +463,14 @@ final class CorePearlConfig implements DocumentConfig, PearlConfig {
 	public Set<RepairMaterial> getUpgradeMaterials() {
 		Set<RepairMaterial> upgrades = new HashSet<RepairMaterial>();
 		Document upgradeRecipes = doc.getDocument("pearls.upgrade_materials");
-		
+
 		for(String upgradeName : upgradeRecipes.keySet()) {
 			upgrades.add(RepairMaterial.fromDocument(upgradeName, upgradeRecipes.getDocument(upgradeName)));
 		}
-		
+
 		return upgrades;
 	}
-	
+
 	@Override
 	public boolean allowPearlStealing() {
 		return doc.getBoolean("allow_pearl_stealing", true);
